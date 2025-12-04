@@ -67,8 +67,4 @@ public class BanController {
         banService.deleteBanByMa(ma);
     }
 
-    @GetMapping("/nu")
-    public List<BanDTO> getFemaleFriendsOrderedByBirthday() {
-        return banService.getFemaleFriendsOrderByBirthday();
-    }
 }

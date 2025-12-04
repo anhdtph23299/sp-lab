@@ -1,7 +1,6 @@
 package com.example.thijava6.service.impl;
 
 import com.example.thijava6.dto.BanDTO;
-import com.example.thijava6.exception.ResourceNotFoundException;
 import com.example.thijava6.model.Ban;
 import com.example.thijava6.repository.BanRepository;
 import com.example.thijava6.service.BanService;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BanServiceImpl implements BanService {
@@ -37,7 +37,7 @@ public class BanServiceImpl implements BanService {
     @Override
     public BanDTO getBanById(Long id) {
         return banRepository.findProjectedById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "id", id));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với id: " + id));
     }
 
     @Override
@@ -47,13 +47,13 @@ public class BanServiceImpl implements BanService {
         }
         Ban savedBan = banRepository.save(ban);
         return banRepository.findProjectedById(savedBan.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "id", savedBan.getId()));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với id: " + savedBan.getId()));
     }
 
     @Override
     public BanDTO updateBan(Long id, Ban banDetails) {
         Ban ban = banRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "id", id));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với id: " + id));
 
         // Check if the new ma already exists for another record
         if (!ban.getMa().equals(banDetails.getMa()) && 
@@ -73,13 +73,13 @@ public class BanServiceImpl implements BanService {
         
         banRepository.save(ban);
         return banRepository.findProjectedById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "id", id));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với id: " + id));
     }
 
     @Override
     public void deleteBan(Long id) {
         Ban ban = banRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "id", id));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với id: " + id));
         banRepository.delete(ban);
     }
 
@@ -91,12 +91,8 @@ public class BanServiceImpl implements BanService {
     @Override
     public void deleteBanByMa(String ma) {
         Ban ban = banRepository.findByMa(ma)
-                .orElseThrow(() -> new ResourceNotFoundException("Ban", "ma", ma));
+                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy bàn với mã: " + ma));
         banRepository.delete(ban);
     }
 
-    @Override
-    public List<BanDTO> getFemaleFriendsOrderByBirthday() {
-        return banRepository.findFemaleFriendsOrderByBirthday();
-    }
 }

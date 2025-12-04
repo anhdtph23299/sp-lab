@@ -39,9 +39,6 @@ public interface BanRepository extends JpaRepository<Ban, Long> {
     // Tìm bạn bè theo mã
     Optional<Ban> findByMa(String ma);
     
-    // Lấy danh sách bạn nữ sắp xếp theo ngày sinh
-    @Query("SELECT b FROM Ban b WHERE b.gioiTinh = false ORDER BY b.ngaySinh")
-    List<BanDTO> findFemaleFriendsOrderByBirthday();
-    
+
     void deleteByMa(String ma);
 }

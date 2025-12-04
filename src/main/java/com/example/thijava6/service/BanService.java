@@ -66,12 +66,7 @@ public interface BanService {
      */
     Page<BanDTO> searchByHoTen(String hoTen, int page, int size);
     
-    /**
-     * Get all female friends ordered by birthday.
-     * @return List of BanDTO for female friends
-     */
-    List<BanDTO> getFemaleFriendsOrderByBirthday();
-    
+
     /**
      * Delete a friend by code.
      * @param ma Friend code
