@@ -1,7 +1,6 @@
 package com.example.thijava6.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +20,9 @@ public class Ban {
     private Long id;
 
     @Column(name = "ma", nullable = false, length = 50)
-    @NotBlank(message = "Mã bạn không được để trống")
     private String ma;
 
     @Column(name = "ho_ten", nullable = false, length = 100)
-    @NotBlank(message = "Họ tên không được để trống")
     private String hoTen;
 
     @Column(name = "email", length = 100)
